@@ -38,5 +38,4 @@
     </div>
     @include('adminlte::layouts.partials.scripts_auth')
 </body>
-
 @endsection

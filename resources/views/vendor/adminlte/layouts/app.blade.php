@@ -44,9 +44,22 @@ desired effect
 
                 <!-- Main content -->
                 <section class="content">
-                    <!-- Your Page Content Here -->
-                    @yield('main-content')
-                </section><!-- /.content -->
+
+                    <div id="principalPanel">
+                        <!-- Your Page Content Here -->
+                        @section('main-content')
+
+                        @show
+                    </div>
+
+                    <div id="windowsModal">
+                        <!-- Your Window Modal Here -->
+                        @section('window-modal')
+
+                        @show
+                    </div>
+
+                </section><!-- /.content -->                
 
             </div><!-- /.content-wrapper -->
 
@@ -59,7 +72,17 @@ desired effect
 
     @section('scripts')
         @include('adminlte::layouts.partials.scripts')
-    @show
+    @show   
+
+    <div class="load"></div>
+
+    <div id="spinner" class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="width: 48px">
+                <!-- <span class="fa fa-spinner fa-spin fa-3x"></span> -->
+            </div>
+        </div>
+    </div>    
 
 </body>
 </html>

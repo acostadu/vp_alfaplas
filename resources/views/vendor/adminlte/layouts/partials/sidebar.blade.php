@@ -40,6 +40,7 @@
                 </a>
             </li>
              -->
+<!--              
             <li class="treeview">
                 <a href="#"><i class='fa fa-cart-arrow-down'></i> <span>Compras</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
@@ -52,10 +53,10 @@
             <li class="treeview">
                 <a href="#"><i class='fa fa-pie-chart'></i> <span>Ventas</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>                    
+                    <li><a href="{{ action('DespachoVentaFEController@index') }}"><i class="fa fa-circle-o"></i>DESPACHO VENTA (FE)</a></li>
+                    <li><a href="{{ action('FacturaVentaFEController@index') }}"><i class="fa fa-circle-o"></i>FACTURA VENTA (FE)</a></li>
+                    <li><a href="{{ action('NotaCrdtoVentaFEController@index') }}"><i class="fa fa-circle-o"></i>NOTA DE CREDITO VENTA (FE)</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>NOTA DE VENTA (FE)</a></li>                    
                 </ul>
             </li>
             <li class="treeview">
@@ -84,34 +85,52 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>                    
                 </ul>
-            </li>                        
+            </li>
+
+ -->            
             <li class="treeview">
                 <a href="#"><i class='fa fa-table'></i> <span>Visor</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li class="treeview">
                         <a href="#"><i class="fa fa-circle-o"></i> <span>Comercial</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-line-chart"></i>Ventas</a></li>
+                            <li><a href="#" id="comercial_ventas"><i class="fa fa-line-chart"></i>Ventas</a></li>
                             <li><a href="#"><i class="fa fa-percent"></i>Comisiones</a></li>
-                            <li><a href="#"><i class="fa fa-pencil-square-o"></i>Pendientes</a></li>
+                            <li><a href="#" class='verVentas'><i class="fa fa-pencil-square-o"></i>Pendientes</a></li>
                         </ul>            
                     </li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Vendedores</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Administración</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Producción</a></li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-circle-o"></i> <span>Producción</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-hourglass-end"></i>Kilogramos / Horas</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Adquisición</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Recursos Humanos</a></li>
                     <li class="treeview">
                         <a href="#"><i class="fa fa-circle-o"></i> <span>Presupuestos</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="#" data-toggle="modal" data-target="#modal-default"><i class="fa fa-line-chart"></i>Ventas</a></li>
+                            <li><a href="{{ action('ProductoController@index') }}"><i class="fa fa-line-chart"></i>Ventas</a></li>
                             <li><a href="#"><i class="fa fa-gear"></i>Producción</a></li>
                         </ul>                         
                     </li>
                 </ul>
             </li>         
             <li><a href="#"><i class='fa fa-wrench'></i> <span>Herramientas</span></a></li>
-            <li><a href="#"><i class='fa fa-sitemap'></i> <span>Configuración</span></a></li>            
+            <li class="treeview">
+                <a href="#"><i class='fa fa-sitemap'></i> <span>Configuración</span><i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li>
+                        <!-- <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-line-chart"></i>Empresas</a> -->
+                        <a href="#" id="empresas"><i class="fa fa-industry"></i>Empresas</a>
+                    </li>
+                    <li>
+                        <a href="#" id="cicloPresupuesto"><i class="fa fa-calendar"></i>Ciclos</a>
+                    </li>                    
+                </ul>                
+            </li>            
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
