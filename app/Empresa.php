@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Empresa extends Model
 {
-    public $fillable=['codigo', 'descripcion','estado']; // 'rut',
+    public $fillable=['codigo', 'descripcion','vigencia']; // 'rut',
 }

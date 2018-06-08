@@ -182,6 +182,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Dusk\DuskServiceProvider::class,
+        /**
+         * DomPDF
+         */
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -235,6 +239,10 @@ return [
          * Acacha AdminLTE template alias
          */        
         'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
+        /**
+         * 
+         */
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

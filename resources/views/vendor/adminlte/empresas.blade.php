@@ -16,13 +16,15 @@
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
-                  <th>ID</th>
+                  <th>Cod.</th>
+                  <th>Rut</th>
                   <th>Descripción</th>            
                   <th>Status</th>
                 </tr>
 			         @foreach ($empresas as $empresa)
                 <tr>
                   <td>{{{ $empresa->codigo }}}</td>
+                  <td>{{ $empresa->rut }}</td>
                   <td>{{ $empresa->descripcion }}</td>
                   <td align="center">
                     <input type="radio" name="optionsRadios" id="opcionEmpresas" value="{{ $empresa->codigo }}">

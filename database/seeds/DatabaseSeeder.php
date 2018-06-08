@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MesesTableSeeder::class);
         $this->call(EmpresasTableSeeder::class);
         $this->call(PruebaMesSeeder::class);
+        $this->call(ComunasRegionesSeeder::class);
     }
 }
