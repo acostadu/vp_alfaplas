@@ -56,5 +56,8 @@ Route::delete('producto/{producto_id?}', 'ProductoController@destroy'); //Remove
 // Empresas
 Route::get('/listarEmpresas', 'EmpresasController@index'); // Display a listing of the resource.
 
+// Ciclos
+Route::get('/listarCiclos', 'CicloController@index'); // Display a listing of the resource.
+
 
 

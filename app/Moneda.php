@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mes extends Model
+class Moneda extends Model
 {
-    public $fillable=['id', 'descripcion'];
+    //
 }

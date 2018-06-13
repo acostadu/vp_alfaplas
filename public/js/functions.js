@@ -19,6 +19,18 @@ $(document).ready(function() {
 
     });
 
+    $("#ciclosPresupuestarios").click(function() {
+
+        if ( $('#cicloModal').length > 0 ) {
+            $('#cicloModal').modal('show');
+        } else {
+            $('#spinner').modal('show');
+            $(this).ajaxPost('listarCiclos','GET','#windowsModal');            
+        }
+        //alert(1);
+
+    });    
+
     /*$(document).on('click','#comercial_ventas', function(event) {
         //var id = $(this).attr('data-id');
         //$(this).ajaxPost('listarVentas','POST','/');

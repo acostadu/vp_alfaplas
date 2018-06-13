@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMesTable extends Migration
+class CreateMonedasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class CreateMesTable extends Migration
      */
     public function up()
     {
-        Schema::create('mes', function (Blueprint $table) {
+        Schema::create('monedas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('descripcion', 10);
+            $table->string('unidad_monetaria', 30);
+            $table->string('simbolo', 4);
+            $table->string('codigo_iso', 4);
+            $table->string('unidad_fraccionaria', 10);
+            $table->string('numero_base', 4);
+            $table->string('codigo_antiguo', 4);
             $table->timestamps();
         });
     }
@@ -27,6 +32,6 @@ class CreateMesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mes');
+        Schema::dropIfExists('monedas');
     }
 }

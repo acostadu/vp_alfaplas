@@ -127,7 +127,7 @@
                         <a href="#" id="empresas"><i class="fa fa-industry"></i>Empresas</a>
                     </li>
                     <li>
-                        <a href="#" id="cicloPresupuesto"><i class="fa fa-calendar"></i>Ciclos</a>
+                        <a href="#" id="ciclosPresupuestarios"><i class="fa fa-calendar"></i>Ciclos</a>
                     </li>                    
                 </ul>                
             </li>            

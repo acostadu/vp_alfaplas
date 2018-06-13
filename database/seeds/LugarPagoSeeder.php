@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class CentroCostosSeeder extends Seeder
+class LugarPagoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,26 +13,23 @@ class CentroCostosSeeder extends Seeder
      */
     public function run()
     {
-        $ccostos = DB::connection('sqlsrv')->select("
-        	SELECT DISTINCT gt.Codigo
+        $lpago = DB::connection('sqlsrv')->select("
+			SELECT DISTINCT gt.Codigo
 			FROM BDFlexline.flexline.GEN_TABCOD gt
-			WHERE gt.tipo = 'CON_CCOSTO'
-			ORDER BY gt.Codigo ASC		
+			WHERE gt.tipo = 'PER_LPAGO'
 		");
 
 		$now = \Carbon\Carbon::now();
 
-        foreach ($ccostos as $data) 
+        foreach ($lpago as $data) 
         {
-	    	DB::table('centro_costos')->insert(
+	    	DB::table('lugar_pagos')->insert(
 	    		array(
 	    			'descripcion' => strtoupper($data->Codigo),
-	    			'detalle' => "", //strtoupper($data->Descripcion),
-	    			'vigencia' => 'S', //(strtoupper($data->Vigencia) == 'S') ? 'S' : 'N',
 	        		'updated_at' => $now,
 	        		'created_at' => $now,        			
 	    		)
 	    	);
-    	}		
+    	}
     }
 }

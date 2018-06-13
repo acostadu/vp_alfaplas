@@ -2,13 +2,6 @@
 
 @section('main-content')
 
-
-
- 
-
-
-
-
 <div class="box">
   <div class="box-header">
     <h3 class="box-title">Reporte de Ventas por Vendedor: Alfaplas - Mes: Mayo</h3>

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
 
+use App\VendedorVenta;
+
 class VentasController extends Controller
 {
     /**
@@ -17,10 +19,36 @@ class VentasController extends Controller
      */
     public function index(Request $request)
     {
-        $connection = DB::connection('sqlsrv');
-        $ventas = $connection->select("SELECT a.Vendedor, SUM(a.Neto) AS Total FROM BDFlexline.dbo.tmp_g1 a WHERE a.empresa = '001' AND a.tipodocto IN ('FACTURA VENTA (FE)', 'N. CRDTO VENTA (FE)', 'BOLETA VENTA (FE)', 'FACTURA EXPORTACION') AND a.fecha BETWEEN '2018-01-05' AND '2018-31-05'
-GROUP BY a.Vendedor
-ORDER BY a.Vendedor ASC");
+        //$empresa = ($request->session()->has('empresa')) ? $request->session()->get('empresa') : '001';
+
+        //$connection = DB::connection('mysql');
+
+        /*$ventas = $connection->select("
+            SELECT a.Vendedor, SUM(a.Neto) AS Total 
+            FROM vendedor_ventas a 
+            WHERE a.empresa = '001' AND a.tipodocto 
+            IN ('FACTURA VENTA (FE)', 'N. CRDTO VENTA (FE)', 'BOLETA VENTA (FE)', 'FACTURA EXPORTACION') 
+            AND a.fecha BETWEEN '2018-05-01' AND '2018-05-31'
+            GROUP BY a.Vendedor
+            ORDER BY a.Vendedor ASC
+        ");*/
+
+        //$ventas = VendedorVenta::all();
+        //$ventas = DB::table('vendedor_ventas')->get();
+        $ventas = DB::table('vendedor_ventas')
+                        ->select('Vendedor', DB::raw('SUM(Neto) AS Total'))
+                        ->where('empresa', '001')
+                        ->whereIn('tipodocto', [
+                            'FACTURA VENTA (FE)', 
+                            'N. CRDTO VENTA (FE)', 
+                            'BOLETA VENTA (FE)', 
+                            'FACTURA EXPORTACION']
+                        )
+                        ->where('fechames', '5')
+                        ->groupBy('vendedor')
+                        ->orderBy('vendedor', 'ASC')
+                        ->get();
+        //dd($ventas);        
 
         $total = 0;
 

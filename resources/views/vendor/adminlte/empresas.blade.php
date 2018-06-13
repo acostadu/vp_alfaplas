@@ -63,7 +63,8 @@
     });
 
     $("#btnEmpresasAplica").click(function() {
-      $("#btnEmpresasAplica").attr('disabled','disabled'); 
+      $("#btnEmpresasAplica").attr('disabled','disabled');
+      $(this).ajaxPost('listarVentas','GET','#principalPanel'); 
       $("#btnEmpresasAcepta").removeAttr('disabled');
     });    
 </script>
