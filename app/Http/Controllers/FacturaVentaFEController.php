@@ -16,10 +16,11 @@ class FacturaVentaFEController extends Controller
     public function index()
     {
         $connection = DB::connection('sqlsrv');
-        $fact_ventas_fe = $connection->select("SELECT TOP 10 a.empresa, a.tipodocto, a.correlativo, a.idctacte, a.fecha, a.moneda, a.vigencia, a.bodega, a.vendedor, a.totalingreso
-FROM BDFlexline.flexline.documento a
-WHERE empresa = '888' AND a.tipodocto = 'FACTURA VENTA (FE)' AND a.fecha >= '2017-01-12'
-ORDER BY a.fecha ASC");
+        $fact_ventas_fe = $connection->select("
+            SELECT TOP 10 a.empresa, a.tipodocto, a.correlativo, a.idctacte, a.fecha, a.moneda, a.vigencia, a.bodega, a.vendedor, a.totalingreso
+            FROM BDFlexline.flexline.documento a
+            WHERE empresa = '001' AND a.tipodocto = 'FACTURA VENTA (FE)' AND a.fecha >= '2017-01-12'
+            ORDER BY a.fecha ASC");
 
         //return var_dump($empresas);        
         return view('adminlte::factura_venta_fe', compact('fact_ventas_fe'));

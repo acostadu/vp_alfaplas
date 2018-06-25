@@ -40,6 +40,11 @@ Route::get('/notaCrdtoVentaFE', 'NotaCrdtoVentaFEController@index');
 Route::get('/despachoVentaFE', 'DespachoVentaFEController@index');
 
 Route::get('/listarVentas', 'VentasController@index');
+Route::get('/listarVentas/{id}/{mes?}/{inicio?}/{fin?}', 'VentasController@show')
+	->where([
+		'id' => '[0-9]+',
+		'mes' => '[0-9]+'
+	]);
 
 
 // Producto
@@ -59,5 +64,5 @@ Route::get('/listarEmpresas', 'EmpresasController@index'); // Display a listing 
 // Ciclos
 Route::get('/listarCiclos', 'CicloController@index'); // Display a listing of the resource.
 
-
-
+// Dashboard
+Route::get('/dashboard/{id}/{ciclo}', 'DashboardController@show'); // Display a listing of the resource.

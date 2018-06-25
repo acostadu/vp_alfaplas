@@ -16,7 +16,7 @@ class VendedorVentasSeeder extends Seeder
 			FROM BDFlexline.dbo.tmp_g1 a 
 			WHERE a.empresa = '001' AND a.tipodocto 
 			IN ('FACTURA VENTA (FE)', 'N. CRDTO VENTA (FE)', 'BOLETA VENTA (FE)', 'FACTURA EXPORTACION') 
-			AND a.fecha BETWEEN '2018-01-05' AND '2018-31-05'
+			AND a.fecha BETWEEN '2018-01-04' AND '2018-31-05'
 			ORDER BY a.Vendedor ASC
 		");
 

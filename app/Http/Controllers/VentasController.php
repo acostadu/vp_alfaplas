@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
 
-use App\VendedorVenta;
-
 class VentasController extends Controller
 {
     /**
@@ -21,34 +19,22 @@ class VentasController extends Controller
     {
         //$empresa = ($request->session()->has('empresa')) ? $request->session()->get('empresa') : '001';
 
-        //$connection = DB::connection('mysql');
-
-        /*$ventas = $connection->select("
-            SELECT a.Vendedor, SUM(a.Neto) AS Total 
-            FROM vendedor_ventas a 
-            WHERE a.empresa = '001' AND a.tipodocto 
-            IN ('FACTURA VENTA (FE)', 'N. CRDTO VENTA (FE)', 'BOLETA VENTA (FE)', 'FACTURA EXPORTACION') 
-            AND a.fecha BETWEEN '2018-05-01' AND '2018-05-31'
-            GROUP BY a.Vendedor
-            ORDER BY a.Vendedor ASC
-        ");*/
-
-        //$ventas = VendedorVenta::all();
-        //$ventas = DB::table('vendedor_ventas')->get();
         $ventas = DB::table('vendedor_ventas')
                         ->select('Vendedor', DB::raw('SUM(Neto) AS Total'))
                         ->where('empresa', '001')
-                        ->whereIn('tipodocto', [
-                            'FACTURA VENTA (FE)', 
-                            'N. CRDTO VENTA (FE)', 
-                            'BOLETA VENTA (FE)', 
-                            'FACTURA EXPORTACION']
+                        ->whereIn('tipodocto', 
+                            [
+                                'FACTURA VENTA (FE)', 
+                                'N. CRDTO VENTA (FE)', 
+                                'BOLETA VENTA (FE)', 
+                                'FACTURA EXPORTACION'
+                            ]
                         )
-                        ->where('fechames', '5')
+                        ->whereBetween('fecha', ['2018-04-01', '2018-05-31'])
+                        //->where('fechames', '4')
                         ->groupBy('vendedor')
                         ->orderBy('vendedor', 'ASC')
-                        ->get();
-        //dd($ventas);        
+                        ->get();      
 
         $total = 0;
 
@@ -106,25 +92,56 @@ class VentasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    
+    public function show($id, $mes = null, $fe_inicio = null, $fe_fin = null, Request $request)
     {
-        /*$connection = DB::connection('sqlsrv');
-        $ventas = $connection->select("SELECT a.Vendedor, SUM(a.Neto) AS Total FROM BDFlexline.dbo.tmp_g1 a WHERE a.empresa = '888' AND a.tipodocto IN ('FACTURA VENTA (FE)', 'N. CRDTO VENTA (FE)', 'BOLETA VENTA (FE)') AND a.fecha BETWEEN '2018-01-01' AND '2018-31-12'
-GROUP BY a.Vendedor
-ORDER BY a.Vendedor ASC");*/
+        if ($mes)
+        {
+            $ventas = DB::table('vendedor_ventas')
+                            ->select('Vendedor', DB::raw('SUM(Neto) AS Total'))
+                            ->where('empresa', $id)
+                            ->whereIn('tipodocto', 
+                                [
+                                    'FACTURA VENTA (FE)', 
+                                    'N. CRDTO VENTA (FE)', 
+                                    'BOLETA VENTA (FE)', 
+                                    'FACTURA EXPORTACION'
+                                ]
+                            )
+                            ->where('fechames', $mes)
+                            ->groupBy('vendedor')
+                            ->orderBy('vendedor', 'ASC')
+                            ->get();      
+        } else {
+            $ventas = DB::table('vendedor_ventas')
+                            ->select('Vendedor', DB::raw('SUM(Neto) AS Total'))
+                            ->where('empresa', $id)
+                            ->whereIn('tipodocto', 
+                                [
+                                    'FACTURA VENTA (FE)', 
+                                    'N. CRDTO VENTA (FE)', 
+                                    'BOLETA VENTA (FE)', 
+                                    'FACTURA EXPORTACION'
+                                ]
+                            )
+                            ->whereBetween('fecha', [$fe_inicio, $fe_fin])
+                            ->groupBy('vendedor')
+                            ->orderBy('vendedor', 'ASC')
+                            ->get();
+        }
 
-        //return view('adminlte::listarVentas', compact('ventas'));
-        //$image = Image::all();
-        /*$view = View::make('adminlte::listarVentas')->with('ventas', $ventas);
-        
-        if($request->ajax()){
-            //Aqui se hace el RenderSections, esto si y solo si la solicitud es de tipo ajax
-            $sections = $view->listarVentas();
-            dd($sections);
+        $total = 0;
 
-            //return Response::json($sections['main-content']); // se envie el sections con un formato json
+        $view = View::make('adminlte::listarVentas')
+            ->with('ventas', $ventas)
+            ->with('total', $total);
 
-        } else return $view;*/
+        if($request->ajax()) 
+        {
+            $sections = $view->renderSections();
+            return Response::json(array('success' => true, 'data' => $sections['main-content']));
+        }
+        else return $view;
         
     }
 

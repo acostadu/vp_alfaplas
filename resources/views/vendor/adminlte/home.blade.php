@@ -13,197 +13,44 @@
    </ul>
    <div class="tab-content">
       <div class="tab-pane fade in active" id="tab_1">
-         <!-- Inicio de las cajas Enero - Febrero - Marzo - Abril -->
-       	<div class="row">
-       		<div class="col-lg-3 col-xs-6">				
-       		  <!-- small box -->
-       		  <div class="small-box bg-aqua">
-       		    <div class="inner">
-       		      <h3>150</h3>
+        <?php
+          $meses = [
+            'Enero', 
+            'Febrero', 
+            'Marzo',
+            'Abril',
+            'Mayo',
+            'Junio',
+            'Julio',
+            'Agosto',
+            'Septiembre',
+            'Octubre',
+            'Noviembre',
+            'Diciembre'
+          ];        
+        ?>
+        @foreach (array_chunk($meses, 4) as $mes)
+          <div class="row">
+          @foreach ($mes as $data)
+            <div class="col-lg-3 col-xs-6">       
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>150</h3>
 
-       		      <p>Enero</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-bag"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-green">
-       		    <div class="inner">
-       		      <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-       		      <p>Febrero</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-stats-bars"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-yellow">
-       		    <div class="inner">
-       		      <h3>44</h3>
-
-       		      <p>Marzo</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-person-add"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-red">
-       		    <div class="inner">
-       		      <h3>65</h3>
-
-       		      <p>Abril</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-pie-graph"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       	</div>
-
-       	<!-- Inicio de las cajas Mayo - Junio - Julio - Agosto -->
-       	<div class="row">
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-aqua">
-       		    <div class="inner">
-       		      <h3>150</h3>
-
-       		      <p>Mayo</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-bag"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-green">
-       		    <div class="inner">
-       		      <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-       		      <p>Junio</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-stats-bars"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-yellow">
-       		    <div class="inner">
-       		      <h3>44</h3>
-
-       		      <p>Julio</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-person-add"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-red">
-       		    <div class="inner">
-       		      <h3>65</h3>
-
-       		      <p>Agosto</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-pie-graph"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       	</div>
-
-       	<!-- Inicio de las cajas Septiembre - Octubre - Noviembre - Diciembre -->
-       	<div class="row">
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-aqua">
-       		    <div class="inner">
-       		      <h3>150</h3>
-
-       		      <p>Septiembre</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-bag"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-green">
-       		    <div class="inner">
-       		      <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-       		      <p>Octubre</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-stats-bars"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-yellow">
-       		    <div class="inner">
-       		      <h3>44</h3>
-
-       		      <p>Noviembre</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-person-add"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       		<div class="col-lg-3 col-xs-6">
-       		  <!-- small box -->
-       		  <div class="small-box bg-red">
-       		    <div class="inner">
-       		      <h3>65</h3>
-
-       		      <p>Diciembre</p>
-       		    </div>
-       		    <div class="icon">
-       		      <i class="ion ion-pie-graph"></i>
-       		    </div>
-       		    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
-       		  </div>
-       		</div>
-       		<!-- ./col -->
-       	</div>
+                  <p>{{$data}}</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="#"  id="ventas_mensual"  data-value="5" class="small-box-footer">
+                  Más info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+          @endforeach
+          </div>
+        @endforeach        
       </div>
       <!-- /.tab-pane -->
       <div class="tab-pane fade" id="tab_2">

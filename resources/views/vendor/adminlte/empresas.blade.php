@@ -48,8 +48,8 @@
       </div>      	
       </div>
       <div class="modal-footer">
-        <button id="btnEmpresasAcepta" type="button" class="btn btn-default" data-dismiss="modal" disabled>Aceptar</button>
-        <button id="btnEmpresasAplica" type="button" class="btn btn-default" disabled>Aplicar</button>
+        <!-- <button id="btnEmpresasAcepta" type="button" class="btn btn-default" data-dismiss="modal" disabled>Aceptar</button> -->
+        <button id="btnEmpresasAplica" type="button" class="btn btn-default" data-dismiss="modal" disabled>Aplicar</button>
       </div>
     </div>
   </div>
@@ -63,9 +63,10 @@
     });
 
     $("#btnEmpresasAplica").click(function() {
-      $("#btnEmpresasAplica").attr('disabled','disabled');
-      $(this).ajaxPost('listarVentas','GET','#principalPanel'); 
-      $("#btnEmpresasAcepta").removeAttr('disabled');
+      //$("#btnEmpresasAplica").attr('disabled','disabled');
+      //$(this).ajaxPost('listarVentas','GET','#principalPanel'); 
+      $(this).ajaxPost('dashboard/'+ $("input[name='optionsRadios']:checked").val() +'/2018','GET','#principalPanel'); 
+      //$("#btnEmpresasAcepta").removeAttr('disabled');
     });    
 </script>
 

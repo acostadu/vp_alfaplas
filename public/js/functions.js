@@ -234,3 +234,12 @@ $(document).on('click','#modal_detail', function(event) {
     var vendedor = $(this).val();
     alert(vendedor);
 });
+
+/*$("#ventas_mensual").click(function() {
+  //
+  alert(1);
+});*/
+
+$(document).on('click','#ventas_mensual', function(event) {
+    $(this).ajaxPost('listarVentas/001/'+ $(this).data('value'),'GET','#principalPanel'); 
+}); 
