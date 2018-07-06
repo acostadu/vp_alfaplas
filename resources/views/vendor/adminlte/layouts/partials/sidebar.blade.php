@@ -33,15 +33,14 @@
         <ul class="sidebar-menu">
             <!-- <li class="header">{{ trans('adminlte_lang::message.header') }}</li> -->
             <!-- Optionally, you can add icons to the links -->
-            <!-- 
-            <li class="active">
+ 
+            <!-- <li class="active">
                 <a href="{{ url('home') }}">
                     <i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.home') }}</span>
                 </a>
-            </li>
-             -->
-<!--              
-            <li class="treeview">
+            </li> -->
+              
+<!--             <li class="treeview">
                 <a href="#"><i class='fa fa-cart-arrow-down'></i> <span>Compras</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
@@ -49,17 +48,18 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>                    
                 </ul>
-            </li>
+            </li> -->
             <li class="treeview">
                 <a href="#"><i class='fa fa-pie-chart'></i> <span>Ventas</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ action('DespachoVentaFEController@index') }}"><i class="fa fa-circle-o"></i>DESPACHO VENTA (FE)</a></li>
-                    <li><a href="{{ action('FacturaVentaFEController@index') }}"><i class="fa fa-circle-o"></i>FACTURA VENTA (FE)</a></li>
-                    <li><a href="{{ action('NotaCrdtoVentaFEController@index') }}"><i class="fa fa-circle-o"></i>NOTA DE CREDITO VENTA (FE)</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>NOTA DE VENTA (FE)</a></li>                    
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Despacho Venta (FE)</a></li>
+                    <li><a href="#" id="facturaVentaFE"><i class="fa fa-circle-o"></i>Factura Venta (FE)</a></li>
+                    <li><a href="#" id="notaCreditoVentaFE"><i class="fa fa-circle-o"></i>Nota de Credito Venta (FE)</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Nota de Venta (FE)</a></li>                    
                 </ul>
             </li>
-            <li class="treeview">
+
+            <!-- <li class="treeview">
                 <a href="#"><i class='fa fa-cogs'></i> <span>Producción</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
@@ -85,9 +85,8 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>{{ trans('adminlte_lang::message.linklevel2') }}</a></li>                    
                 </ul>
-            </li>
-
- -->            
+            </li> -->
+          
             <li class="treeview">
                 <a href="#"><i class='fa fa-table'></i> <span>Visor</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">

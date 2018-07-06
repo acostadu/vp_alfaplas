@@ -27,16 +27,26 @@
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>{{ $neto }}</h3>
+                  <h3>$ {{ number_format(round($neto), 0,",",".") }}</h3>
 
-                  <p>{{ $data->descripcion }}</p>
+                  <p>Plan: $ 0</p>
+
+                  @if ($data->id > $mes_actual)
+                    <span class="label label-warning">Pendiente</span>
+                  @elseif ($data->id < $mes_actual)
+                    <span class="label label-danger">Finalizado</span>
+                  @else
+                    <span class="label label-success">En Proceso</span>
+                  @endif                  
+                  
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" id="ventas_mensual" data-value="{{ $data->id }}" class="small-box-footer">
-                  Más info <i class="fa fa-arrow-circle-right"></i>
-                </a>
+                  <a href="#" id="ventas_mensual" data-value="{{ $data->id }}" class="small-box-footer">
+                    <b>{{ ucfirst(strtolower($data->descripcion)) }}</b> | Más info 
+                    <i class="fa fa-arrow-circle-right"></i>
+                  </a>                 
               </div>
             </div>
             <?php $neto = 0; ?>            
@@ -59,5 +69,27 @@
    </div>      
 </div>
 <!-- nav-tabs-custom -->
+
+<div class="modal fade" id="notificacionModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Notificación</h4>
+      </div>
+      <div class="modal-body">
+        <p>Este <b>mes</b> aún no contiene ninguna información</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Cerrar</button>
+        <!-- <button type="button" class="btn btn-outline">Save changes</button> -->
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 @endsection

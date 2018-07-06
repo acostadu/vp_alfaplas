@@ -1,35 +1,34 @@
 $(document).ready(function() {
 
-    //$("input[name='optionsRadios']:checked").val()
-    
+    $('#example').DataTable();   
 
-    $("#comercial_ventas").click(function() {
+    //$("input[name='optionsRadios']:checked").val() 
+
+    $("#comercial_ventas").click(function() 
+    {
         $('#spinner').modal('show');
         $(this).ajaxPost('listarVentas','GET','#principalPanel');
     });
 
-    $("#empresas").click(function() {
-
+    $("#empresas").click(function() 
+    {
         if ( $('#empresaModal').length > 0 ) {
             $('#empresaModal').modal('show');
         } else {
             $('#spinner').modal('show');
             $(this).ajaxPost('listarEmpresas','GET','#windowsModal');            
         }
-
     });
 
-    $("#ciclosPresupuestarios").click(function() {
-
+    $("#ciclosPresupuestarios").click(function() 
+    {
         if ( $('#cicloModal').length > 0 ) {
             $('#cicloModal').modal('show');
         } else {
             $('#spinner').modal('show');
             $(this).ajaxPost('listarCiclos','GET','#windowsModal');            
         }
-        //alert(1);
-
-    });    
+    });  
 
     /*$(document).on('click','#comercial_ventas', function(event) {
         //var id = $(this).attr('data-id');
@@ -88,6 +87,10 @@ $(document).ready(function() {
             success: function (json) {
                 $('#spinner').modal('hide');
                 $(sectionToRender).empty().append($(json.data));
+
+                if (json.header)
+                    $('#headerPanel').empty().append($(json.header));
+
                 if (json.modal)
                     $(json.modal).modal('show');
             },
@@ -229,10 +232,28 @@ $(document).ready(function() {
 
 });
 
+// Formatea la fecha para su uso en el DateRangePicker
+function convertDateFormat(string) {
+    var fecha = string.split('-');
+    return fecha[1] + '/' + fecha[2] + '/' + fecha[0];
+} 
+
 // Muestra modal de carga cuando se realiza un petición AJAX
 $(document).on('click','#modal_detail', function(event) {
     var vendedor = $(this).val();
     alert(vendedor);
+});
+
+// Muestra modal de carga cuando se realiza un petición AJAX
+$(document).on('click','#modal_grafica', function(event) {
+    var vendedor = $(this).val();
+    //alert(vendedor);
+    if ( $('#graficaBarraModal').length > 0 ) {
+        $('#graficaBarraModal').modal('show');
+    } else {
+        $('#spinner').modal('show');
+        $(this).ajaxPost('verGraficoBarra/001/'+vendedor, 'GET', '#windowsModal');
+    }
 });
 
 /*$("#ventas_mensual").click(function() {
@@ -240,6 +261,42 @@ $(document).on('click','#modal_detail', function(event) {
   alert(1);
 });*/
 
-$(document).on('click','#ventas_mensual', function(event) {
-    $(this).ajaxPost('listarVentas/001/'+ $(this).data('value'),'GET','#principalPanel'); 
-}); 
+$(document).on('click','#ventas_mensual', function(event) 
+{
+    var mes_actual = moment().month()+1;
+    var mes_check = $(this).data('value');
+
+    if (mes_check <= mes_actual) {
+        $('#spinner').modal('show');
+        $(this).ajaxPost('listarVentas/001/'+ mes_check,'GET','#principalPanel');         
+    } else {
+        //alert('Notificación: Mes sin información');
+        $('#notificacionModal').modal('show');
+    }
+
+});
+
+// Despliega las Facturas de Venta (FE) segun fecha indicada
+$(document).on('click','#facturaVentaFE', function(event) {
+    $('#spinner').modal('show');
+    $(this).ajaxPost('facturaVentaFE/001/', 'GET', '#principalPanel'); 
+});
+
+// Despliega las Notas de Credito de Venta (FE) segun fecha indicada
+$(document).on('click','#notaCreditoVentaFE', function(event) {
+    $('#spinner').modal('show');
+    $(this).ajaxPost('notaCrdtoVentaFE/001/', 'GET', '#principalPanel');
+});
+
+$('body').on('click', '.pagination a', function(e) {
+    e.preventDefault();
+
+    /*$('#load a').css('color', '#dfecf6');
+    $('#load').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/images/loading.gif" />');
+    */
+
+    var url = $(this).attr('href');
+    $('#spinner').modal('show');
+    $(this).ajaxPost(url, 'GET', '#principalPanel');
+    //window.history.pushState("", "", url);
+});

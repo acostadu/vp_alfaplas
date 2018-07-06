@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
-use App\Http\Controllers\Controller;
 
-use App\Empresa;
+
+//use App\Empresa;
 
 class EmpresasController extends Controller
 {
@@ -22,7 +23,10 @@ class EmpresasController extends Controller
     {
         //$connection = DB::connection('sqlsrv');
         //$empresas = $connection->select('SELECT * FROM BDFlexline.security.SEG_EMPRESA');
-        $empresas = Empresa::all();
+        //$empresas = Empresa::all();
+
+        $empresas = DB::connection('mysql')->table('empresas')->get();
+        //dd($empresas);          
        
         $view = View::make('adminlte::empresas')->with('empresas', $empresas);
 

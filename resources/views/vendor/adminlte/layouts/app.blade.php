@@ -29,7 +29,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue fixed">
     <div id="app" v-cloak>
         <div class="wrapper">
 
@@ -70,10 +70,6 @@ desired effect
         </div><!-- ./wrapper -->
     </div>
 
-    @section('scripts')
-        @include('adminlte::layouts.partials.scripts')
-    @show   
-
     <div class="load"></div>
 
     <div id="spinner" class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
@@ -82,7 +78,11 @@ desired effect
                 <!-- <span class="fa fa-spinner fa-spin fa-3x"></span> -->
             </div>
         </div>
-    </div>    
+    </div>     
+
+    @section('scripts')
+        @include('adminlte::layouts.partials.scripts')
+    @show   
 
 </body>
 </html>

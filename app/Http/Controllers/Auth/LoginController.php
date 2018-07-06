@@ -38,7 +38,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/home'; //'/dashboard/001/2018';
 
     /**
      * Create a new controller instance.
@@ -87,6 +87,4 @@ class LoginController extends Controller
             ['email' => $request->input('username'), 'password' => $request->input('password')],
             $request->has('remember'));
     }
-
-
 }

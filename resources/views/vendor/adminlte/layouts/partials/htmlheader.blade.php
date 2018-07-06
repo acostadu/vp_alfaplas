@@ -1,11 +1,16 @@
 <head>
     <meta charset="UTF-8">
-    <title> AlfaERP - @yield('htmlheader_title', 'Your title here') </title>
+    <title> AlfaERP - @yield('htmlheader_title', 'AlfaERP') </title> 
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="{{ mix('/css/all.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Datepicker Files -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/datepicker3.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/daterangepicker.css') }}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/> 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,7 +25,7 @@
            speak for themselves. Background we set to 80% white with
            our animation centered, and no-repeating */
         .modal {
-            background: url('{{asset('img/loader.gif')}}') 50% 50% no-repeat; 
+            background: url('{{ asset('img/loader.gif') }}') 50% 50% no-repeat; 
         }
 
         /* When the body has the loading class, we turn
@@ -39,7 +44,6 @@
 
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
     <script>
         //See https://laracasts.com/discuss/channels/vue/use-trans-in-vuejs
         window.trans = @php

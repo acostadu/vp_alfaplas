@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
@@ -23,12 +24,22 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $connection = DB::connection('sqlsrv');
         $empresas = $connection->select('SELECT * FROM BDFlexline.security.SEG_EMPRESA');
        
         return view('adminlte::home', compact('empresas'));
-        //return view('adminlte::layouts.app', compact('empresas'));
+
+        /*$empresas = DB::connection('mysql')->table('empresas')->get();        
+       
+        $view = View::make('adminlte::empresas')->with('empresas', $empresas);
+
+        if($request->ajax()) 
+        {
+            $sections = $view->renderSections();
+            return Response::json(array('success' => true, 'data' => $sections['window-modal'], 'modal' => '#empresaModal'));
+        }
+        else return $view;*/        
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Response;
 
 class FacturaVentaFEController extends Controller
 {
@@ -53,9 +55,49 @@ class FacturaVentaFEController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $fe_inicio = null, $fe_fin = null, Request $request)
     {
-        //
+        $fact_ventas_fe = DB::connection('sqlsrv')->table('BDFlexline.flexline.documento')
+                        ->select(
+                            'empresa', 
+                            'tipodocto', 
+                            'correlativo', 
+                            'idctacte',
+                            'fecha', 
+                            'moneda', 
+                            'vigencia',
+                            'bodega',
+                            'vendedor',
+                            'totalingreso'
+                        )
+                        ->where('empresa', $id)
+                        ->where('tipodocto', 'FACTURA VENTA (FE)')
+                        ->whereBetween('fecha', [$fe_inicio, $fe_fin])
+                        //->where('fechames', '4')
+                        //->groupBy('vendedor')
+                        ->orderBy('correlativo', 'ASC')
+                        ->paginate(15);
+        
+        $fe_ini = (isset($fe_inicio)) ? $fe_inicio : date('Y-d-m');
+        $fe_fin = (isset($fe_fin)) ? $fe_fin : date('Y-d-m');
+
+        $view = View::make('adminlte::factura_venta_fe')
+                ->with('fe_inicio', $fe_ini)
+                ->with('fe_fin', $fe_fin)        
+                ->with('fact_ventas_fe', $fact_ventas_fe);
+
+        if($request->ajax()) 
+        {
+            $sections = $view->renderSections();
+            return Response::json(
+                array(
+                    'success' => true,
+                    'header' => $sections['contentheader_title'],                    
+                    'data' => $sections['main-content']
+                )
+            );
+        }
+        else return $view;
     }
 
     /**

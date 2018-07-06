@@ -35,16 +35,23 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/facturaVentaFE', 'FacturaVentaFEController@index');
 
-Route::get('/notaCrdtoVentaFE', 'NotaCrdtoVentaFEController@index');
+Route::get('/facturaVentaFE/{id}/{inicio?}/{fin?}', 'FacturaVentaFEController@show')->where([
+	'id' => '[0-9]+',
+	//'mes' => '[0-9]+'
+]);
+
+Route::get('/notaCrdtoVentaFE/{id}/{inicio?}/{fin?}', 'NotaCrdtoVentaFEController@show')->where([
+	'id' => '[0-9]+',
+	//'mes' => '[0-9]+'
+]);
 
 Route::get('/despachoVentaFE', 'DespachoVentaFEController@index');
 
 Route::get('/listarVentas', 'VentasController@index');
-Route::get('/listarVentas/{id}/{mes?}/{inicio?}/{fin?}', 'VentasController@show')
-	->where([
-		'id' => '[0-9]+',
-		'mes' => '[0-9]+'
-	]);
+Route::get('/listarVentas/{id}/{mes?}/{inicio?}/{fin?}', 'VentasController@show')->where([
+	'id' => '[0-9]+',
+	'mes' => '[0-9]+'
+]);
 
 
 // Producto
@@ -66,3 +73,16 @@ Route::get('/listarCiclos', 'CicloController@index'); // Display a listing of th
 
 // Dashboard
 Route::get('/dashboard/{id}/{ciclo}', 'DashboardController@show'); // Display a listing of the resource.
+
+// Graficos Barra
+Route::get('/verGraficoBarra/{id}/{vendedor}', 'GraficoBarraController@show'); // Display a listing of the resource.
+
+// Calendario
+Route::get('datepicker', function () {
+	return view('datepicker');
+});
+
+// Calendario - Rango
+Route::get('daterangepicker', function () {
+	return view('daterangepicker');
+});

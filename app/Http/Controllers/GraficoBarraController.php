@@ -3,21 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
 
-class DashboardController extends Controller
+class GraficoBarraController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //$ciclos = Ciclo::all();
+       
+        $view = View::make('adminlte::verGraficoBarra'); //->with('ciclos', $ciclos);
+
+        if($request->ajax()) 
+        {
+            $sections = $view->renderSections();
+            return Response::json(
+                array(
+                    'success' => true, 
+                    'data' => $sections['window-modal'], 
+                    'modal' => '#graficaBarraModal'
+                )
+            );
+        }
+        else return $view;
     }
 
     /**
@@ -47,53 +63,44 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $ciclo, Request $request)
+    public function show($id, $vendedor, Request $request)
     {
+        //$meses = DB::table('mes')->get();
 
-        $meses = DB::connection('mysql')->table('mes')->get();
-
-        $ventas = DB::connection('mysql')->table('vendedor_ventas')
+        /*$ventas = DB::table('vendedor_ventas')
                         ->select('fechames', DB::raw('SUM(Neto) AS Total'))
                         ->where('empresa', $id)
-                        ->whereIn('tipodocto', 
-                            [
-                                'FACTURA VENTA (FE)', 
-                                'N. CRDTO VENTA (FE)', 
-                                'BOLETA VENTA (FE)', 
-                                'FACTURA EXPORTACION'
-                            ]
-                        )
+                        ->where('Vendedor', $vendedor)
                         ->where('fechaano', $ciclo)
                         ->groupBy('fechames')
                         ->orderBy('fechames', 'ASC')
-                        ->get();        
+                        ->get();*/        
 
         //dd($meses);
         //$total = 0;
-        $data_ventas = [];
-        $fecha = getdate();
+        //$data_ventas = [];
 
-        //dd($fecha['mon']);
-
-        foreach ($meses as $mes) 
-        {
+        /*foreach ($meses as $mes) {
             $data_ventas [] = array( 
                 'id' => $mes->id, 
-                'descripcion' => $mes->descripcion
+                'descripcion' =>$mes->descripcion
             );
-        }
+        }*/
 
         //dd($data_ventas);
 
-        $view = View::make('adminlte::dashboard')
-            ->with('meses', $meses)
-            ->with('ventas', json_decode($ventas))
-            ->with('mes_actual', $fecha['mon']);
+        $view = View::make('adminlte::verGraficoBarra')->with('vendedor', $vendedor);
 
         if($request->ajax()) 
         {
             $sections = $view->renderSections();
-            return Response::json(array('success' => true, 'data' => $sections['main-content']));
+            return Response::json(
+                array(
+                    'success' => true, 
+                    'data' => $sections['window-modal'], 
+                    'modal' => '#graficaBarraModal'
+                )
+            );
         }
         else return $view;        
     }

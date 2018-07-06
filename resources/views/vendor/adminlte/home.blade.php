@@ -1,5 +1,9 @@
 @extends('adminlte::layouts.app')
 
+@section('contentheader_title')
+{{-- 'Panel de Control' --}}
+@endsection
+
 @section('main-content')
 
 <!-- Custom Tabs -->
@@ -36,15 +40,17 @@
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3 align="right">150</h3>
+                  <h3>151</h3>
+                  <span class="label label-danger">Cerrado</span>
 
-                  <p>{{$data}}</p>
+                  <!-- <p>{{-- $data --}}</p> -->
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#"  id="ventas_mensual"  data-value="5" class="small-box-footer">
-                  Más info <i class="fa fa-arrow-circle-right"></i>
+                <a href="#"  id="ventas_mensual" data-value="5" class="small-box-footer">
+                  <b>{{ $data }}</b> | Más info <i class="fa fa-arrow-circle-right"></i>
                 </a>
               </div>
             </div>

@@ -14,16 +14,20 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
+              <table class="table table-hover table-condensed table-striped">
                 <tr>
-                  <th>Cod.</th>
-                  <th>Ciclo</th>          
-                  <th>Status</th>
+                  <th>ID</th>
+                  <th>Ciclo</th>
+                  <th>Usuario Apertura</th> 
+                  <th>Usuario Cierre</th>            
+                  <th>Estado</th>
                 </tr>
 			         @foreach ($ciclos as $ciclo)
                 <tr>
                   <td>{{{ $ciclo->id }}}</td>
                   <td>{{ $ciclo->descripcion }}</td>
+                  <td>Luis Ortega</td>
+                  <td>Sandra Vallejos</td>
                   <td>
                     @switch($ciclo->estado)
                         @case(0)
@@ -35,20 +39,8 @@
                             @break
 
                         @default
-                            <span class="label label-md label-danger">Cerrado</span>
-                    @endswitch                    
-                    
-                    <!-- <input type="radio" name="optionsRadios" id="opcionCiclos" value="{{ $ciclo->codigo }}"> -->
-                    <!-- <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
-                      <div class="btn-group" data-toggle="btn-toggle">
-                        <button type="button" class="btn btn-default btn-sm" value="{{-- $empresa->EMPRESA --}}">
-                           <i class="fa fa-square text-blue"></i>
-                        </button>
-                        <button type="button" class="btn btn-default btn-sm active">
-                           <i class="fa fa-square text-red"></i>
-                        </button>
-                      </div>
-                    </div> -->
+                            <span class="label label-md label-danger">Finalizado</span>
+                    @endswitch
                   </td>
                 </tr>
             	   @endforeach
@@ -59,7 +51,7 @@
       </div>      	
       </div>
       <div class="modal-footer">
-        <button id="btnCiclosCerrar" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button id="btnCiclosCerrar" type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
         <!-- <button id="btnCiclosAplica" type="button" class="btn btn-default" disabled>Aplicar</button> -->
       </div>
     </div>

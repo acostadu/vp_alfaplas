@@ -39,7 +39,7 @@ class VentasController extends Controller
         $total = 0;
 
         $view = View::make('adminlte::listarVentas')
-            ->with('ventas', $ventas)
+            ->with('ventas', json_encode($ventas))
             ->with('total', $total);
 
         if($request->ajax()) 
@@ -97,7 +97,7 @@ class VentasController extends Controller
     {
         if ($mes)
         {
-            $ventas = DB::table('vendedor_ventas')
+            $vendedor = DB::connection('mysql')->table('vendedor_ventas')
                             ->select('Vendedor', DB::raw('SUM(Neto) AS Total'))
                             ->where('empresa', $id)
                             ->whereIn('tipodocto', 
@@ -111,9 +111,25 @@ class VentasController extends Controller
                             ->where('fechames', $mes)
                             ->groupBy('vendedor')
                             ->orderBy('vendedor', 'ASC')
-                            ->get();      
+                            ->get();
+
+            $documentos = DB::connection('mysql')->table('vendedor_ventas')
+                            ->select('tipodocto', DB::raw('SUM(Neto) AS Total'))
+                            ->where('empresa', $id)
+                            ->whereIn('tipodocto', 
+                                [
+                                    'FACTURA VENTA (FE)', 
+                                    'N. CRDTO VENTA (FE)', 
+                                    'BOLETA VENTA (FE)', 
+                                    'FACTURA EXPORTACION'
+                                ]
+                            )
+                            ->where('fechames', $mes)
+                            ->groupBy('tipodocto')
+                            ->orderBy('tipodocto', 'ASC')
+                            ->get();                                   
         } else {
-            $ventas = DB::table('vendedor_ventas')
+            $vendedor = DB::connection('mysql')->table('vendedor_ventas')
                             ->select('Vendedor', DB::raw('SUM(Neto) AS Total'))
                             ->where('empresa', $id)
                             ->whereIn('tipodocto', 
@@ -128,13 +144,51 @@ class VentasController extends Controller
                             ->groupBy('vendedor')
                             ->orderBy('vendedor', 'ASC')
                             ->get();
+
+            $documentos = DB::connection('mysql')->table('vendedor_ventas')
+                            ->select('tipodocto', DB::raw('SUM(Neto) AS Total'))
+                            ->where('empresa', $id)
+                            ->whereIn('tipodocto', 
+                                [
+                                    'FACTURA VENTA (FE)', 
+                                    'N. CRDTO VENTA (FE)', 
+                                    'BOLETA VENTA (FE)', 
+                                    'FACTURA EXPORTACION'
+                                ]
+                            )
+                            ->whereBetween('fecha', [$fe_inicio, $fe_fin])
+                            ->groupBy('tipodocto')
+                            ->orderBy('tipodocto', 'ASC')
+                            ->get();                              
         }
 
         $total = 0;
 
+        $meses = [
+            'Enero', 
+            'Febrero', 
+            'Marzo',
+            'Abril',
+            'Mayo',
+            'Junio',
+            'Julio',
+            'Agosto',
+            'Septiembre',
+            'Octubre',
+            'Noviembre',
+            'Diciembre'
+        ]; // Array con los meses del año para mostrar en la grafica
+        
+        $mes = $mes-1; // Se resta 1 para dar con el mes que corresponde, ya que el indice del array [$meses] inicia en 0
+        $mes1 = array_slice($meses, $mes, 1);       
+
         $view = View::make('adminlte::listarVentas')
-            ->with('ventas', $ventas)
-            ->with('total', $total);
+            ->with('ventas1', $vendedor)
+            ->with('ventas2', json_encode($vendedor))
+            ->with('documentos', $documentos)
+            ->with('total', $total)
+            ->with('mes', $mes1[0])
+            ->with('mesx', $mes);
 
         if($request->ajax()) 
         {

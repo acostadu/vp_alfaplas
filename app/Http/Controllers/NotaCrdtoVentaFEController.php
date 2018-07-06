@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Response;
 
 class NotaCrdtoVentaFEController extends Controller
 {
@@ -52,9 +54,50 @@ ORDER BY a.fecha ASC");
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $fe_inicio = null, $fe_fin = null, Request $request)
     {
-        //
+        $nc_venta_fe = DB::connection('sqlsrv')->table('BDFlexline.flexline.documento')
+                        ->select(
+                            'empresa', 
+                            'tipodocto', 
+                            'correlativo', 
+                            'idctacte',
+                            'fecha', 
+                            'moneda', 
+                            'vigencia',
+                            'bodega',
+                            'vendedor',
+                            'totalingreso'
+                        )
+                        ->where('empresa', $id)
+                        ->where('tipodocto', 'N. CRDTO VENTA (FE)')
+                        ->whereBetween('fecha', [$fe_inicio, $fe_fin])
+                        //->where('fechames', '4')
+                        //->groupBy('vendedor')
+                        ->orderBy('correlativo', 'ASC')
+                        ->paginate(15);
+
+        $fe_ini = (isset($fe_inicio)) ? $fe_inicio : date('Y-d-m');
+        $fe_fin = (isset($fe_fin)) ? $fe_fin : date('Y-d-m');                        
+
+        $view = View::make('adminlte::nota_crdto_venta_fe')
+                ->with('fe_inicio', $fe_ini)
+                ->with('fe_fin', $fe_fin)        
+                ->with('nc_venta_fe', $nc_venta_fe);       
+
+        if($request->ajax()) 
+        {
+            $sections = $view->renderSections();
+            //return Response::json(array('success' => true, 'data' => $sections['main-content']));
+            return Response::json(
+                array(
+                    'success' => true,
+                    'header' => $sections['contentheader_title'],                    
+                    'data' => $sections['main-content']
+                )
+            );            
+        }
+        else return $view;
     }
 
     /**

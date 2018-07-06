@@ -30,7 +30,7 @@
                     <input type="radio" name="optionsRadios" id="opcionEmpresas" value="{{ $empresa->codigo }}">
                     <!-- <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
                       <div class="btn-group" data-toggle="btn-toggle">
-                        <button type="button" class="btn btn-default btn-sm" value="{{ $empresa->EMPRESA }}">
+                        <button type="button" class="btn btn-default btn-sm" value="">
                            <i class="fa fa-square text-red"></i>
                         </button>
                         <button type="button" class="btn btn-default btn-sm active">
@@ -49,7 +49,7 @@
       </div>
       <div class="modal-footer">
         <!-- <button id="btnEmpresasAcepta" type="button" class="btn btn-default" data-dismiss="modal" disabled>Aceptar</button> -->
-        <button id="btnEmpresasAplica" type="button" class="btn btn-default" data-dismiss="modal" disabled>Aplicar</button>
+        <button id="btnEmpresasAplica" type="button" class="btn btn-primary" data-dismiss="modal" disabled>Aplicar</button>
       </div>
     </div>
   </div>
@@ -64,7 +64,8 @@
 
     $("#btnEmpresasAplica").click(function() {
       //$("#btnEmpresasAplica").attr('disabled','disabled');
-      //$(this).ajaxPost('listarVentas','GET','#principalPanel'); 
+      //$(this).ajaxPost('listarVentas','GET','#principalPanel');
+      $('#spinner').modal('show'); 
       $(this).ajaxPost('dashboard/'+ $("input[name='optionsRadios']:checked").val() +'/2018','GET','#principalPanel'); 
       //$("#btnEmpresasAcepta").removeAttr('disabled');
     });    
