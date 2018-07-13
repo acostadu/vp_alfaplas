@@ -86,3 +86,5 @@ Route::get('datepicker', function () {
 Route::get('daterangepicker', function () {
 	return view('daterangepicker');
 });
+
+Route::get('/Sbif', 'SbifController@index');

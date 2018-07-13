@@ -186,6 +186,8 @@ return [
          * DomPDF
          */
         Barryvdh\DomPDF\ServiceProvider::class,
+        // API de la Superintendencia de Bancos e Instituciones Financieras (SBIF) de Chile
+        Kattatzu\Sbif\Providers\SbifServiceProvider::class,        
 
     ],
 
@@ -243,6 +245,10 @@ return [
          * 
          */
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        /**
+         * API de la Superintendencia de Bancos e Instituciones Financieras (SBIF) de Chile
+         */
+        'Sbif' => Kattatzu\Sbif\Facades\SbifFacade::class,        
 
     ],
 

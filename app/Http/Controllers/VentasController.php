@@ -127,7 +127,23 @@ class VentasController extends Controller
                             ->where('fechames', $mes)
                             ->groupBy('tipodocto')
                             ->orderBy('tipodocto', 'ASC')
-                            ->get();                                   
+                            ->get();
+
+            $familias = DB::connection('mysql')->table('vendedor_ventas')
+                            ->select('Familia', DB::raw('SUM(Neto) AS Total'))
+                            ->where('empresa', $id)
+                            ->whereIn('tipodocto', 
+                                [
+                                    'FACTURA VENTA (FE)', 
+                                    'N. CRDTO VENTA (FE)', 
+                                    'BOLETA VENTA (FE)', 
+                                    'FACTURA EXPORTACION'
+                                ]
+                            )
+                            ->where('fechames', $mes)
+                            ->groupBy('Familia')
+                            ->orderBy('Total', 'DESC')
+                            ->get();                                                                
         } else {
             $vendedor = DB::connection('mysql')->table('vendedor_ventas')
                             ->select('Vendedor', DB::raw('SUM(Neto) AS Total'))
@@ -159,7 +175,23 @@ class VentasController extends Controller
                             ->whereBetween('fecha', [$fe_inicio, $fe_fin])
                             ->groupBy('tipodocto')
                             ->orderBy('tipodocto', 'ASC')
-                            ->get();                              
+                            ->get();
+
+            $familias = DB::connection('mysql')->table('vendedor_ventas')
+                            ->select('Familia', DB::raw('SUM(Neto) AS Total'))
+                            ->where('empresa', $id)
+                            ->whereIn('tipodocto', 
+                                [
+                                    'FACTURA VENTA (FE)', 
+                                    'N. CRDTO VENTA (FE)', 
+                                    'BOLETA VENTA (FE)', 
+                                    'FACTURA EXPORTACION'
+                                ]
+                            )
+                            ->whereBetween('fecha', [$fe_inicio, $fe_fin])
+                            ->groupBy('Familia')
+                            ->orderBy('Total', 'DESC')
+                            ->get();                                                           
         }
 
         $total = 0;
@@ -186,6 +218,7 @@ class VentasController extends Controller
             ->with('ventas1', $vendedor)
             ->with('ventas2', json_encode($vendedor))
             ->with('documentos', $documentos)
+            ->with('familias', $familias)
             ->with('total', $total)
             ->with('mes', $mes1[0])
             ->with('mesx', $mes);

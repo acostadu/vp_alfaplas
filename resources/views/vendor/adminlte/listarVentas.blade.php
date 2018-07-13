@@ -151,7 +151,7 @@
     <!-- PRODUCT LIST -->
     <div class="box box-info">
       <div class="box-header with-border">
-        <h3 class="box-title">Ranking Clientes</h3>
+        <h3 class="box-title">Ranking por Familias</h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
           <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -161,7 +161,29 @@
         <canvas id="pieChart" style="width: 647px; height: 323px;" width="647" height="323"></canvas>
       </div><!-- /.box-body -->
       <div class="box-footer text-center">
-        <a href="#" class="uppercase" onclick="alert(1)">Ver todos los clientes</a>
+        <a href="#" class="uppercase" onclick="alert(1)">Más info <i class="fa fa-arrow-circle-right"></i></a>
+      </div><!-- /.box-footer -->
+    </div><!-- /.box -->
+  </div><!-- /.col -->
+</div>
+
+<div class="row">
+
+  <div class="col-md-12">
+    <!-- PRODUCT LIST -->
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">Prueba</h3>
+        <div class="box-tools pull-right">
+          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+          <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <canvas id="testChart"></canvas>
+      </div><!-- /.box-body -->
+      <div class="box-footer text-center">
+        <a href="#" class="uppercase" onclick="alert(1)">Más info <i class="fa fa-arrow-circle-right"></i></a>
       </div><!-- /.box-footer -->
     </div><!-- /.box -->
   </div><!-- /.col -->
@@ -204,7 +226,7 @@
     var neto = [];
     var neto_venta = 0;
 
-    for(var i in ventas) {
+    for (var i in ventas) {
       vendedor.push(ventas[i].Vendedor);
       neto.push(ventas[i].Total);
       neto_venta += ventas[i].Total;
@@ -238,10 +260,17 @@
       }
     }
 
-    //$('#info_bta_venta_fe').html('$ '+ new Intl.NumberFormat('es-CL', 'CLP').format(netoDoctos[0]));
-    //$('#info_fact_export').html('$ '+ new Intl.NumberFormat('es-CL', 'CLP').format(netoDoctos[1]));
-    //$('#info_fact_venta_fe').html('$ '+ new Intl.NumberFormat('es-CL', 'CLP').format(netoDoctos[2]));
-    //$('#info_nc_venta_fe').html('$ '+ new Intl.NumberFormat('es-CL', 'CLP').format(netoDoctos[3]));
+    var familias = JSON.parse('{!! $familias !!}');
+    console.log(familias);
+
+    var familia = [];
+    var neto_familia = [];
+
+    for (var k in familias) {
+      familia.push(familias[k].Familia);
+      neto_familia.push(familias[k].Total);
+    }
+
 
 
     /* ChartJS
@@ -252,6 +281,8 @@
     //--------------
     //- AREA CHART -
     //--------------
+    //
+
     var areaChartData = {
       labels: vendedor,
       datasets: [
@@ -316,80 +347,122 @@
 
     barChartOptions.datasetFill = false;
     barChart.Bar(barChartData, barChartOptions);
-  });
 
-  //-------------
-  //- PIE CHART -
-  //-------------
-  // Get context with jQuery - using jQuery's .get() method.
-  var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-  var pieChart       = new Chart(pieChartCanvas)
-  var PieData        = [
-    {
-      value    : 700,
-      color    : '#f56954',
-      highlight: '#f56954',
-      label    : 'Electricidad Gobantes, S.A'
-    },
-    {
-      value    : 500,
-      color    : '#00a65a',
-      highlight: '#00a65a',
-      label    : 'Cosmoplas, S.A'
-    },
-    {
-      value    : 400,
-      color    : '#f39c12',
-      highlight: '#f39c12',
-      label    : 'Rhona, S.A'
-    },
-    {
-      value    : 600,
-      color    : '#00c0ef',
-      highlight: '#00c0ef',
-      label    : 'Tecnored, S.A'
-    },
-    {
-      value    : 300,
-      color    : '#3c8dbc',
-      highlight: '#3c8dbc',
-      label    : 'Comercial Valplas, S.A'
-    },
-    {
-      value    : 100,
-      color    : '#d2d6de',
-      highlight: '#d2d6de',
-      label    : 'ChileMat, SPA'
+    //-------------
+    //- PIE CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+    var pieChart       = new Chart(pieChartCanvas)
+    var PieData        = [
+      {
+        value    : neto_familia[0],
+        color    : '#f56954',
+        highlight: '#f56954',
+        label    : familia[0]
+      },
+      {
+        value    : neto_familia[1],
+        color    : '#00a65a',
+        highlight: '#00a65a',
+        label    : familia[1]
+      },
+      {
+        value    : neto_familia[2],
+        color    : '#f39c12',
+        highlight: '#f39c12',
+        label    : familia[2]
+      },
+      {
+        value    : neto_familia[3],
+        color    : '#00c0ef',
+        highlight: '#00c0ef',
+        label    : familia[3]
+      },
+      {
+        value    : neto_familia[4],
+        color    : '#3c8dbc',
+        highlight: '#3c8dbc',
+        label    : familia[4]
+      },
+      {
+        value    : neto_familia[5],
+        color    : '#d2d6de',
+        highlight: '#d2d6de',
+        label    : familia[5]
+      }
+    ];
+
+    var pieOptions     = {
+      //Boolean - Whether we should show a stroke on each segment
+      segmentShowStroke    : true,
+      //String - The colour of each segment stroke
+      segmentStrokeColor   : '#fff',
+      //Number - The width of each segment stroke
+      segmentStrokeWidth   : 2,
+      //Number - The percentage of the chart that we cut out of the middle
+      percentageInnerCutout: 50, // This is 0 for Pie charts
+      //Number - Amount of animation steps
+      animationSteps       : 100,
+      //String - Animation easing effect
+      animationEasing      : 'easeOutBounce',
+      //Boolean - Whether we animate the rotation of the Doughnut
+      animateRotate        : true,
+      //Boolean - Whether we animate scaling the Doughnut from the centre
+      animateScale         : false,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive           : true,
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio  : true,
+      //String - A legend template
+      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
     }
-  ]
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    pieChart.Doughnut(PieData, pieOptions);
 
-  var pieOptions     = {
-    //Boolean - Whether we should show a stroke on each segment
-    segmentShowStroke    : true,
-    //String - The colour of each segment stroke
-    segmentStrokeColor   : '#fff',
-    //Number - The width of each segment stroke
-    segmentStrokeWidth   : 2,
-    //Number - The percentage of the chart that we cut out of the middle
-    percentageInnerCutout: 50, // This is 0 for Pie charts
-    //Number - Amount of animation steps
-    animationSteps       : 100,
-    //String - Animation easing effect
-    animationEasing      : 'easeOutBounce',
-    //Boolean - Whether we animate the rotation of the Doughnut
-    animateRotate        : true,
-    //Boolean - Whether we animate scaling the Doughnut from the centre
-    animateScale         : false,
-    //Boolean - whether to make the chart responsive to window resizing
-    responsive           : true,
-    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-    maintainAspectRatio  : true,
-    //String - A legend template
-    legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
-  }
-  //Create pie or douhnut chart
-  // You can switch between pie and douhnut using the method below.
-  pieChart.Doughnut(PieData, pieOptions)
+
+    var testChartCanvas = $('#testChart').get(0).getContext("2d");
+    var testChart = new Chart(testChartCanvas);
+     // The data for our dataset
+      /*var data = {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [{
+              label: "My First dataset",
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: [0, 10, 5, 2, 20, 30, 45],
+          }]
+      };*/
+
+      /*var data = {
+          datasets: [{
+              data: [100000000, 200000000, 300000000]
+          }],
+
+          // These labels appear in the legend and in the tooltips when hovering different arcs
+          labels: [
+              'Red',
+              'Yellow',
+              'Blue'
+          ]
+      };*/
+      var data = [{
+          value: 10,
+          label: 'Red'
+        }, {
+          value: 20,
+          label: 'Yellow'
+        }, {
+          value: 30,
+          label: 'Blue'
+      }];            
+
+      // Configuration options go here
+      var options = {};
+      testChart.Doughnut(data, options);   
+
+  });
 
 </script>
 

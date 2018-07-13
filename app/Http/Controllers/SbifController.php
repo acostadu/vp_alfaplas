@@ -3,38 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Response;
+use Kattatzu\Sbif\Sbif;
+use Kattatzu\Sbif\Institution;
+//use Kattatzu\Sbif\Facades\SbifFacade;
 
-
-//use App\Empresa;
-
-class EmpresasController extends Controller
+class SbifController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        //$connection = DB::connection('sqlsrv');
-        //$empresas = $connection->select('SELECT * FROM BDFlexline.security.SEG_EMPRESA');
-        //$empresas = Empresa::all();
 
-        $empresas = DB::connection('mysql')->table('empresas')->get();        
-       
-        $view = View::make('adminlte::empresas')->with('empresas', $empresas);
+        //$date = Carbon::today();
+        $date = \Carbon\Carbon::now();
+        $sbif = new Sbif();
+        $sbif->apiKey('7c1e482c477b8af7281ecd334296eeeb427a2642');
 
-        if($request->ajax()) 
-        {
-            $sections = $view->renderSections();
-            return Response::json(array('success' => true, 'data' => $sections['window-modal'], 'modal' => '#empresaModal'));
-        }
-        else return $view;
+        echo $sbif->getIndicator(Sbif::IND_EURO, $date)."<br/>";
+        echo $sbif->getIndicator(Sbif::IND_DOLLAR, $date)."<br/>";
+        echo $sbif->getIndicator(Sbif::IND_UTM, $date)."<br/>";
+        echo $sbif->getIndicator(Sbif::IND_UF, $date)."<br/>";
+
+        //echo $sbif->getIndicator(Sbif::IND_IPC, $date)."<br/>";
+        //var_dump($sbif);
+        //print_r($sbif->getDollar());
+        //echo $sbif->getDollar()." <- Dolar<br/>";
+        //echo $sbif->getEuro()." <- Euro<br/>";        
+        //echo $sbif->getUTM()." <- UTM<br/>";
+        //echo $sbif->getUF()." <- UF<br/>";
+        //echo $sbif->getIPC()." <- UF<br/>";
+
+        //664.0
+        //echo $sbif->getIndicator(Sbif::IND_DOLLAR);        
+        //var_dump($sbif->get("/resultados/2018/12/instituciones"));
+        //$info = $sbif->getInstitutionData('016')->toArray();
+        //dd($info);
+        //dd((new Institution)->getInstitutions());
     }
 
     /**
