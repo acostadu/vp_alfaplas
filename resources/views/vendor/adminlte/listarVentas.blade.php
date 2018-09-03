@@ -271,8 +271,6 @@
       neto_familia.push(familias[k].Total);
     }
 
-
-
     /* ChartJS
      * -------
      * Here we will create a few charts using ChartJS
